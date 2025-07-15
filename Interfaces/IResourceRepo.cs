@@ -9,9 +9,9 @@ public interface IResourceRepo
     Task<Resource> GetResourceById(int Id);
     Task<IEnumerable<Resource>> GetAllResources();
 
-    Task CreateResource(CreateResourceDto resource);
+    Task CreateResource(Resource resource);
 
-    Task UpdateResource(UpdateResourceDto resource, int Id);
+    Task UpdateResource(Resource resource, int Id);
 
     Task RemoveResource(int Id);
 }

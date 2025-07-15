@@ -32,15 +32,16 @@ public class ResourceRepo(ApplicationDbContext context) : IResourceRepo
         }
     }
 
-    public async Task CreateResource(CreateResourceDto resource)
+    public async Task CreateResource(Resource resource)
     {
         await _context.AddAsync(resource);
         await _context.SaveChangesAsync();
     }
 
-    public async Task UpdateResource(UpdateResourceDto resource, int Id)
+    public async Task UpdateResource(Resource resource, int Id)
     {
         var res = await GetResourceById(Id);
+
         if (res != null)
         {
             res.Name = resource.Name;
