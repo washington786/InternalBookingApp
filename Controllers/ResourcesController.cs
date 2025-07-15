@@ -102,7 +102,7 @@ namespace InternalBookingApp.Controllers
                 {
                     await _resourceService.RemoveResource(Id);
                     TempData["Message"] = "Resource deleted successfully.";
-                    RedirectToAction(nameof(Index));
+                    return RedirectToAction(nameof(Index));
                 }
                 catch (Exception ex)
                 {
