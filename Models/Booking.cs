@@ -7,7 +7,6 @@ public class Booking
 {
     public int Id { get; set; }
 
-
     public DateTime StartTime { get; set; }
     public DateTime EndTime { get; set; }
     public required string BookedBy { get; set; }

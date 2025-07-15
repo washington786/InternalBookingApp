@@ -16,4 +16,6 @@ public class Resource
 
     public bool IsAvailable { get; set; } = true;
 
+    public ICollection<Booking>? Bookings { get; set; }
+
 }
