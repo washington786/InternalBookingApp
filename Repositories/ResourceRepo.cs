@@ -1,36 +1,54 @@
 using System;
 using InternalBookingApp.Data;
+using InternalBookingApp.DTOs.Resource;
 using InternalBookingApp.Interfaces;
 using InternalBookingApp.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace InternalBookingApp.Repositories;
 
 public class ResourceRepo(ApplicationDbContext context) : IResourceRepo
 {
+
     private readonly ApplicationDbContext _context = context;
 
-    public Task CreateResource(Resource resource)
+    public async Task<Resource> GetResourceById(int Id)
     {
-        throw new NotImplementedException();
+        return (await _context.Resources.FirstOrDefaultAsync((res) => res.Id == Id))!;
     }
 
-    public Task<IEnumerable<Resource>> GetAllResources()
+    public async Task<IEnumerable<Resource>> GetAllResources()
     {
-        throw new NotImplementedException();
+        return await _context.Resources.ToListAsync();
     }
 
-    public Task<Resource> GetResourceById(int Id)
+    public async Task RemoveResource(int Id)
     {
-        throw new NotImplementedException();
+        var res = await GetResourceById(Id);
+        if (res != null)
+        {
+            _context.Resources.Remove(res);
+            await _context.SaveChangesAsync();
+        }
     }
 
-    public Task RemoveResource(int Id)
+    public async Task CreateResource(CreateResourceDto resource)
     {
-        throw new NotImplementedException();
+        await _context.AddAsync(resource);
+        await _context.SaveChangesAsync();
     }
 
-    public Task UpdateResource(Resource resource, int Id)
+    public async Task UpdateResource(UpdateResourceDto resource, int Id)
     {
-        throw new NotImplementedException();
+        var res = await GetResourceById(Id);
+        if (res != null)
+        {
+            res.Name = resource.Name;
+            res.Description = resource.Description;
+            res.Capacity = resource.Capacity;
+            res.Location = resource.Location;
+            res.IsAvailable = resource.IsAvailable;
+            await _context.SaveChangesAsync();
+        }
     }
 }
