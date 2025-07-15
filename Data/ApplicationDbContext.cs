@@ -9,7 +9,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-        modelBuilder.Entity<Resource>().HasMany(r => r.Bookings).WithOne(r => r.Resource).HasForeignKey(r => r.Resource.Id);
+        modelBuilder.Entity<Resource>().HasMany(r => r.Bookings).WithOne(r => r.Resource).HasForeignKey(r => r.ResourceId);
     }
 
     public DbSet<Resource> Resources { get; set; }
