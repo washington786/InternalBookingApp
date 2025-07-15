@@ -1,5 +1,38 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model InternalBookingApp.DTOs.Resource.ResourceDto
 @{
+    ViewData["Title"] = "Resource Details";
 }
+
+<a asp-action="Index" class="btn btn-secondary mb-3">Back to List</a>
+
+<div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h2 class="mb-0">@Model.Name</h2>
+    </div>
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-3">ID</dt>
+            <dd class="col-sm-9">@Model.Id</dd>
+
+            <dt class="col-sm-3">Name</dt>
+            <dd class="col-sm-9">@Model.Name</dd>
+
+            <dt class="col-sm-3">Description</dt>
+            <dd class="col-sm-9">@Model.Description</dd>
+
+            <dt class="col-sm-3">Location</dt>
+            <dd class="col-sm-9">@Model.Location</dd>
+
+            <dt class="col-sm-3">Capacity</dt>
+            <dd class="col-sm-9">@Model.Capacity</dd>
+
+            <dt class="col-sm-3">Status</dt>
+            <dd class="col-sm-9">
+                <span class="badge @(Model.IsAvailable ? "bg-success" : "bg-danger")">
+                    @(Model.IsAvailable ? "Available" : "Unavailable")
+                </span>
+            </dd>
+        </dl>
+    </div>
+</div>
+</div>
