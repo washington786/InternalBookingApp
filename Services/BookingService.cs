@@ -5,9 +5,10 @@ using InternalBookingApp.Models;
 
 namespace InternalBookingApp.Services;
 
-public class BookingService(IBookingRepo bookingRepo) : IBookingService
+public class BookingService(IBookingRepo bookingRepo, IResourceRepo resourceRepo) : IBookingService
 {
     private readonly IBookingRepo _bookingRepo = bookingRepo;
+    private readonly IResourceRepo _ResourceRepo = resourceRepo;
 
     public async Task<BookingDto> CreateBooking(CreateBookingDto booking)
     {
@@ -19,6 +20,18 @@ public class BookingService(IBookingRepo bookingRepo) : IBookingService
             ResourceId = booking.ResourceId,
             StartTime = booking.StartTime,
         };
+
+        if (IsStartAndEndTimeOverlapping(newBooking.StartTime, newBooking.EndTime))
+        {
+            throw new ArgumentException("Start time must be before end time.");
+        }
+
+        var resource = await _ResourceRepo.GetResourceById(booking.ResourceId);
+
+        if (resource is null)
+        {
+            throw new ArgumentException("Resource not found.");
+        }
 
         var isConflicts = await _bookingRepo.HasBookingConflicts(booking.ResourceId, booking.StartTime, booking.EndTime);
 
@@ -66,12 +79,19 @@ public class BookingService(IBookingRepo bookingRepo) : IBookingService
     }
 
 
-    // helper method
+    // helper methods
     private static BookingDto ToDto(Booking book)
     {
         return new BookingDto(
             Id: book.Id, BookedBy: book.BookedBy, EndTime: book.EndTime, Purpose: book.Purpose, StartTime: book.StartTime, ResourceId: book.ResourceId
         )
         { };
+    }
+
+    private static bool IsStartAndEndTimeOverlapping(DateTime StartTime, DateTime EndTime)
+    {
+        var isValidStart = StartTime < EndTime;
+        var isValidEnd = EndTime > StartTime;
+        return isValidStart && isValidEnd;
     }
 }

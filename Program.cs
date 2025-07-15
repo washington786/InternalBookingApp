@@ -1,4 +1,7 @@
 using InternalBookingApp.Data;
+using InternalBookingApp.Interfaces;
+using InternalBookingApp.Repositories;
+using InternalBookingApp.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +11,12 @@ builder.Services.AddControllersWithViews();
 
 var DbConnectionString = builder.Configuration.GetConnectionString("BookingDB");
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(DbConnectionString));
+
+// adding services and repositories in scope
+builder.Services.AddScoped<IBookingRepo, BookingRepo>();
+builder.Services.AddScoped<IBookingService, BookingService>();
+builder.Services.AddScoped<IResourceRepo, ResourceRepo>();
+builder.Services.AddScoped<IResourceService, ResourceService>();
 
 var app = builder.Build();
 

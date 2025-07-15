@@ -18,5 +18,5 @@ public interface IBookingRepo
     // main application logic
     Task<bool> HasBookingConflicts(int ResourceId, DateTime StartTime, DateTime EndTime, int? bookingId = null);
     Task<IEnumerable<Booking>> GetBookingByResource(int Id);
-    Task<IEnumerable<Booking>> GetUpcomingBookings(int daysUpcoming = 5);
+    Task<IEnumerable<Booking>> GetUpcomingBookings(int daysUpcoming = 7);
 }
