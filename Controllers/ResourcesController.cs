@@ -1,12 +1,16 @@
+using InternalBookingApp.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InternalBookingApp.Controllers
 {
-    public class ResourcesController : Controller
+    public class ResourcesController(IResourceService resourceService) : Controller
     {
-        public ActionResult Index()
+        private readonly IResourceService _resourceService = resourceService;
+
+        public async Task<ActionResult> Index()
         {
-            return View();
+            var resources = await _resourceService.GetAllResources();
+            return View(resources);
         }
 
         public ActionResult Create()
