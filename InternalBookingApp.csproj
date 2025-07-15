@@ -15,4 +15,9 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views/Booking/" />
+    <Folder Include="Views/Resource/" />
+  </ItemGroup>
+
 </Project>
