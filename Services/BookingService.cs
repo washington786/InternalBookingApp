@@ -9,9 +9,26 @@ public class BookingService(IBookingRepo bookingRepo) : IBookingService
 {
     private readonly IBookingRepo _bookingRepo = bookingRepo;
 
-    public Task<BookingDto> CreateBooking(CreateBookingDto booking)
+    public async Task<BookingDto> CreateBooking(CreateBookingDto booking)
     {
-        throw new NotImplementedException();
+        var newBooking = new Booking
+        {
+            BookedBy = booking.BookedBy,
+            EndTime = booking.EndTime,
+            Purpose = booking.Purpose,
+            ResourceId = booking.ResourceId,
+            StartTime = booking.StartTime,
+        };
+
+        var isConflicts = await _bookingRepo.HasBookingConflicts(booking.ResourceId, booking.StartTime, booking.EndTime);
+
+        if (isConflicts)
+        {
+            throw new InvalidOperationException("Booking conflicts with existing bookings.");
+        }
+
+        await _bookingRepo.CreateBooking(newBooking);
+        return ToDto(newBooking);
     }
 
     public async Task EditBooking(UpdateBookingDto booking, int Id)

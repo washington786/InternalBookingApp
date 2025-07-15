@@ -14,6 +14,6 @@ public class Booking
 
     public int ResourceId { get; set; }
     [ForeignKey("ResourceId")]
-    public required Resource Resource { get; set; }
+    public Resource? Resource { get; set; }
 
 }
