@@ -9,7 +9,7 @@ public record class CreateResourceDto(
     string Description,
     [Required] [StringLength(250)]
     string Location,
-    [MinLength(1,ErrorMessage ="Capacity must be greater than 1")]
+    [Range(1,int.MaxValue,ErrorMessage ="Capacity must be greater than 1")]
     int Capacity,
     bool IsAvailable
     )

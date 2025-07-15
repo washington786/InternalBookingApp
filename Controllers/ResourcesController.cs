@@ -15,6 +15,8 @@ namespace InternalBookingApp.Controllers
             return View(resources);
         }
 
+
+        [HttpGet]
         public ActionResult Create()
         {
             return View();
