@@ -14,7 +14,6 @@ public class Resource
 
     public int Capacity { get; set; }
 
-    public bool IsAvailable { get; set; }
-
+    public bool IsAvailable { get; set; } = true;
 
 }

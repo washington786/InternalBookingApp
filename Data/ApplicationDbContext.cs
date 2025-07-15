@@ -1,4 +1,5 @@
 using System;
+using InternalBookingApp.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace InternalBookingApp.Data;
@@ -9,5 +10,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     {
         base.OnModelCreating(modelBuilder);
     }
+
+    public DbSet<Resource> Resources { get; set; }
 
 }
