@@ -47,18 +47,27 @@ public class BookingRepo(ApplicationDbContext dbContext) : IBookingRepo
         }
     }
 
-    public Task<IEnumerable<Booking>> GetBookingByResource(int Id)
+    public async Task<IEnumerable<Booking>> GetBookingByResource(int Id)
     {
-        throw new NotImplementedException();
+        return await _context.Bookings.Where(b => b.ResourceId == Id).OrderBy(b => b.StartTime).ToListAsync();
     }
 
-    public Task<IEnumerable<Booking>> GetUpcomingBookings(int daysUpcoming = 5)
+    public async Task<IEnumerable<Booking>> GetUpcomingBookings(int daysUpcoming = 7)
     {
-        throw new NotImplementedException();
+        var today = DateTime.UtcNow;
+
+        var endTime = today.AddDays(daysUpcoming);
+
+        return await _context.Bookings.Where(b => b.StartTime >= today && b.StartTime <= endTime).OrderBy(b => b.StartTime)
+        .ToListAsync();
     }
 
-    public Task<bool> HasBookingConflicts(int ResourceId, DateTime StartTime, DateTime EndTime, int? bookingId = null)
+    public async Task<bool> HasBookingConflicts(int ResourceId, DateTime StartTime, DateTime EndTime, int? bookingId = null)
     {
-        throw new NotImplementedException();
+        return await _context.Bookings.AnyAsync(b =>
+         b.ResourceId == ResourceId &&
+         StartTime < b.EndTime && EndTime > b.StartTime &&
+         (!bookingId.HasValue || b.Id != bookingId.Value)
+     );
     }
 }
