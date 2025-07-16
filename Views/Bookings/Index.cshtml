@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<InternalBookingApp.DTOs.Booking.BookingDto>
+
 @{
     ViewData["Title"] = "Bookings";
 }
@@ -35,7 +36,7 @@
                                     <td>@booking.Purpose</td>
                                     <td>@booking.BookedBy</td>
                                     <td>
-                                        @booking.ResourceId
+                                        @booking.Resource
                                     </td>
                                     <td>
                                         <a asp-action="Edit" asp-route-id="@booking.Id" class="btn btn-sm btn-outline-primary">

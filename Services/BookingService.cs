@@ -83,7 +83,7 @@ public class BookingService(IBookingRepo bookingRepo, IResourceRepo resourceRepo
     private static BookingDto ToDto(Booking book)
     {
         return new BookingDto(
-            Id: book.Id, BookedBy: book.BookedBy, EndTime: book.EndTime, Purpose: book.Purpose, StartTime: book.StartTime, ResourceId: book.ResourceId
+            Id: book.Id, BookedBy: book.BookedBy, EndTime: book.EndTime, Purpose: book.Purpose, StartTime: book.StartTime, ResourceId: book.ResourceId, Resource: book.Resource?.Name
         )
         { };
     }

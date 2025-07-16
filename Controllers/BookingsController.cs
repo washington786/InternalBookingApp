@@ -48,10 +48,47 @@ namespace InternalBookingApp.Controllers
         }
 
 
-        public ActionResult Edit()
+        public async Task<ActionResult> Edit(int Id)
         {
-            return View();
+            var booking = await _bookingService.GetBookingById(Id);
+            if (booking == null)
+            {
+                return NotFound();
+            }
+            var updateDto = new UpdateBookingDto(
+            booking.Id,
+            booking.StartTime,
+            booking.EndTime,
+            booking.BookedBy,
+            booking.Purpose,
+            booking.ResourceId
+            );
+
+            await GetResources();
+
+            return View(updateDto);
         }
+
+        [HttpPost]
+        public async Task<ActionResult> Edit(int Id, UpdateBookingDto booking)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    await _bookingService.EditBooking(booking, Id);
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    ModelState.AddModelError("", ex.Message);
+                }
+            }
+
+            return View(booking);
+        }
+
         public ActionResult Details()
         {
             return View();
