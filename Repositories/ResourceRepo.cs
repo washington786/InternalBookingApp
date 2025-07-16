@@ -14,7 +14,7 @@ public class ResourceRepo(ApplicationDbContext context) : IResourceRepo
 
     public async Task<Resource> GetResourceById(int Id)
     {
-        return (await _context.Resources.FirstOrDefaultAsync((res) => res.Id == Id))!;
+        return (await _context.Resources.Include(b => b.Bookings).FirstOrDefaultAsync((res) => res.Id == Id))!;
     }
 
     public async Task<IEnumerable<Resource>> GetAllResources()

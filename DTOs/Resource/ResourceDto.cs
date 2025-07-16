@@ -7,7 +7,7 @@ public record class ResourceDto(int Id,
     string Description,
     string Location,
     int Capacity,
-    bool IsAvailable, BookingDto[]? Bookings = null)
+    bool IsAvailable, IEnumerable<BookingDto>? Bookings = null)
 
 {
 
