@@ -22,8 +22,8 @@ A simple ASP.NET Core MVC web application that allows employees to efficiently v
 
 1. **Clone the repository**
    """bash"""
-   git clone <https://github.com/your-username/internal-booking-system.git>
-   cd internal-booking-system
+   git <https://github.com/washington786/InternalBookingApp.git>
+   cd InternalBookingApp
 
 <!-- Application Directory and Files -->
 ## Project Structure
@@ -66,9 +66,9 @@ A simple ASP.NET Core MVC web application that allows employees to efficiently v
 }
 
 7. Services{
-   - BookingService: database querying logic for bookings
-   - ResourceService: database querying logic for resources
-   - DashboardService: database querying logic for resources
+   - BookingService: business logic for bookings
+   - ResourceService: business logic for resources
+   - DashboardService: business logic for resources
 }
 
 8. Views(UI){
@@ -93,6 +93,7 @@ DbContext (Database) """
 1. Routing is easier
 2. Separation of concerns
 3. Reusable logic
+
 <!--
 
 Message to Reviewer: Please note due to time, I couldn't add much comments into the project.
