@@ -1,5 +1,36 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model InternalBookingApp.DTOs.Booking.BookingDto
 @{
+    ViewData["Title"] = "Booking Cancellation";
 }
+<h2>Cancel Booking</h2>
+
+<div class="card shadow-sm mt-4">
+    <div class="card-header bg-warning text-white">
+        <h3 class="mb-0">Are you sure you want to delete this resource?</h3>
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Resource Details</h5>
+        <dl class="row mb-4">
+            <dt class="col-sm-3">StartTime</dt>
+            <dd class="col-sm-9">@Model.StartTime</dd>
+
+            <dt class="col-sm-3">EndTime</dt>
+            <dd class="col-sm-9">@Model.EndTime</dd>
+
+            <dt class="col-sm-3">BookedBy</dt>
+            <dd class="col-sm-9">@Model.BookedBy</dd>
+
+            <dt class="col-sm-3">Capacity</dt>
+            <dd class="col-sm-9">@Model.Purpose</dd>
+        </dl>
+        <form asp-action="Cancel" method="post" class="d-flex gap-2">
+            <input type="hidden" asp-for="Id" />
+            <button type="submit" class="btn btn-warning">
+                <i class="bi bi-trash"></i> Cancel
+            </button>
+            <a asp-action="Index" class="btn btn-secondary">
+                <i class="bi bi-x-circle"></i> Back to List
+            </a>
+        </form>
+    </div>
+</div>

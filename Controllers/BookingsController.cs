@@ -90,10 +90,28 @@ namespace InternalBookingApp.Controllers
             return View(booking);
         }
 
-        public ActionResult Details()
+        public async Task<ActionResult> Details(int Id)
         {
-            return View();
+            var booking = await _bookingService.GetBookingById(Id);
+            if (booking == null)
+            {
+                return NotFound();
+            }
+            return View(booking);
         }
+
+
+        [HttpPost, ActionName("Cancel")]
+        public async Task<ActionResult> CancelBooking(int Id)
+        {
+            var booking = await _bookingService.GetBookingById(Id);
+            if (booking == null)
+            {
+                return NotFound();
+            }
+            return View(booking);
+        }
+
         public ActionResult Delete()
         {
             return View();
