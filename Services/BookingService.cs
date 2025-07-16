@@ -63,7 +63,8 @@ public class BookingService(IBookingRepo bookingRepo, IResourceRepo resourceRepo
     public async Task<IEnumerable<BookingDto>> GetAllBookings()
     {
         var bookings = await _bookingRepo.GetAllBookings();
-        return bookings.Select(book => ToDto(book!));
+        return bookings
+            .Select(book => ToDto(book));
     }
 
     public async Task<BookingDto?> GetBookingById(int Id)
