@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using InternalBookingApp.DTOs.Booking;
 using InternalBookingApp.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -20,18 +21,33 @@ namespace InternalBookingApp.Controllers
         [HttpGet]
         public async Task<ActionResult> Create()
         {
-            var resource = await _res.GetAllResources();
-
-            ViewData["Resources"] = resource.Select(r => new SelectListItem()
-            {
-                Value = r.Id.ToString(),
-                Text = r.Name
-            }).ToList();
-
+            await GetResources();
             return View();
         }
 
-        // [HttpPost]
+        [HttpPost]
+        public async Task<ActionResult> Create(CreateBookingDto booking)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var createdBooking = await _bookingService.CreateBooking(booking);
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    ModelState.AddModelError("", ex.Message);
+                }
+            }
+
+            await GetResources();
+
+            return View(booking);
+        }
+
+
         public ActionResult Edit()
         {
             return View();
@@ -43,6 +59,18 @@ namespace InternalBookingApp.Controllers
         public ActionResult Delete()
         {
             return View();
+        }
+
+        // helper Methods
+        public async Task GetResources()
+        {
+            var resources = await _res.GetAllResources();
+            ViewData["Resources"] = resources.Select(r => new SelectListItem
+            {
+                Value = r.Id.ToString(),
+                Text = r.Name
+            });
+
         }
 
     }

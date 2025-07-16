@@ -21,7 +21,7 @@ public class BookingService(IBookingRepo bookingRepo, IResourceRepo resourceRepo
             StartTime = booking.StartTime,
         };
 
-        if (IsStartAndEndTimeOverlapping(newBooking.StartTime, newBooking.EndTime))
+        if (!IsStartAndEndTimeOverlapping(newBooking.StartTime, newBooking.EndTime))
         {
             throw new ArgumentException("Start time must be before end time.");
         }
