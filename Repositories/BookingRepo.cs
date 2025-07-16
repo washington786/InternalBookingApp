@@ -21,7 +21,11 @@ public class BookingRepo(ApplicationDbContext dbContext) : IBookingRepo
         var book = await GetBookingById(booking.Id);
         if (book != null)
         {
-            _context.Bookings.Update(book);
+            book.BookedBy = booking.BookedBy;
+            book.EndTime = booking.EndTime;
+            book.Purpose = booking.Purpose;
+            book.ResourceId = booking.ResourceId;
+            book.StartTime = booking.StartTime;
             await _context.SaveChangesAsync();
         }
     }

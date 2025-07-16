@@ -55,13 +55,14 @@ namespace InternalBookingApp.Controllers
             {
                 return NotFound();
             }
+
             var updateDto = new UpdateBookingDto(
-            booking.Id,
-            booking.StartTime,
-            booking.EndTime,
-            booking.BookedBy,
-            booking.Purpose,
-            booking.ResourceId
+                booking.Id,
+                booking.StartTime,
+                booking.EndTime,
+                booking.Purpose,
+                booking.BookedBy,
+                booking.ResourceId
             );
 
             await GetResources();
@@ -85,7 +86,7 @@ namespace InternalBookingApp.Controllers
                     ModelState.AddModelError("", ex.Message);
                 }
             }
-
+            await GetResources();
             return View(booking);
         }
 

@@ -8,30 +8,38 @@
 
 <form asp-action="Edit" method="post">
     <input type="hidden" name="Id" value="@Model.Id" />
+
     <div class="form-group">
         <label asp-for="StartTime" class="control-label"></label>
-        <input asp-for="StartTime" class="form-control" type="datetime-local" />
+        <input asp-for="StartTime" class="form-control" type="datetime-local"
+            value="@Model.StartTime.ToString("yyyy-MM-ddTHH:mm")" />
         <span asp-validation-for="StartTime" class="text-danger"></span>
     </div>
+
     <div class="form-group">
         <label asp-for="EndTime" class="control-label"></label>
-        <input asp-for="EndTime" class="form-control" type="datetime-local" />
+        <input asp-for="EndTime" class="form-control" type="datetime-local"
+            value="@Model.EndTime.ToString("yyyy-MM-ddTHH:mm")" />
         <span asp-validation-for="EndTime" class="text-danger"></span>
     </div>
+
     <div class="form-group">
         <label asp-for="Purpose" class="control-label"></label>
         <input asp-for="Purpose" class="form-control" />
         <span asp-validation-for="Purpose" class="text-danger"></span>
     </div>
+
     <div class="form-group">
-        <label asp-for="BookedBy" class="control-label">FullNames</label>
+        <label asp-for="BookedBy" class="control-label">Full Names</label>
         <input asp-for="BookedBy" class="form-control" />
         <span asp-validation-for="BookedBy" class="text-danger"></span>
     </div>
+
     <div class="form-group">
         <label asp-for="ResourceId" class="control-label">Resource Name</label>
         <select asp-for="ResourceId" class="form-control"
-            asp-items="@(ViewData["Resources"] as IEnumerable<SelectListItem>)"></select>
+            asp-items="@(ViewData["Resources"] as IEnumerable<SelectListItem>)">
+        </select>
         <span asp-validation-for="ResourceId" class="text-danger"></span>
     </div>
 
@@ -40,5 +48,3 @@
         <a asp-action="Index" class="btn btn-secondary ms-2">Back to List</a>
     </div>
 </form>
-
-</div>
