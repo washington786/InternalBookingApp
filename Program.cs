@@ -17,6 +17,7 @@ builder.Services.AddScoped<IBookingRepo, BookingRepo>();
 builder.Services.AddScoped<IBookingService, BookingService>();
 builder.Services.AddScoped<IResourceRepo, ResourceRepo>();
 builder.Services.AddScoped<IResourceService, ResourceService>();
+builder.Services.AddScoped<IStatsService, DashboardService>();
 
 var app = builder.Build();
 
@@ -37,7 +38,7 @@ app.MapStaticAssets();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}")
+    pattern: "{controller=Dashboard}/{action=Index}/{id?}")
     .WithStaticAssets();
 
 

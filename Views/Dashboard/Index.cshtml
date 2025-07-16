@@ -1,4 +1,4 @@
-﻿@* @model DashboardViewModel *@
+﻿@model InternalBookingApp.Models.Dashboard
 @{
     ViewData["Title"] = "Dashboard";
 }
@@ -70,7 +70,7 @@
                             @foreach (var booking in Model.UpcomingBookings)
                             {
                                 <tr>
-                                    <td>@booking.ResourceName</td>
+                                    <td>@booking.Resource</td>
                                     <td>@booking.StartTime.ToString("dd MMM yyyy")</td>
                                     <td>@booking.StartTime.ToString("hh:mm tt") - @booking.EndTime.ToString("hh:mm tt")</td>
                                     <td>@booking.BookedBy</td>
