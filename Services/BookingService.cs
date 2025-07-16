@@ -37,7 +37,7 @@ public class BookingService(IBookingRepo bookingRepo, IResourceRepo resourceRepo
 
         if (isConflicts)
         {
-            throw new InvalidOperationException("Booking conflicts with existing bookings.");
+            throw new InvalidOperationException("This resource is already booked during the requested time. Please choose another slot or resource, or adjust your times.");
         }
 
         await _bookingRepo.CreateBooking(newBooking);
