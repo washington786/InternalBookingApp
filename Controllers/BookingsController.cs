@@ -140,7 +140,7 @@ namespace InternalBookingApp.Controllers
         public async Task GetResources()
         {
             var resources = await _res.GetAllResources();
-            ViewData["Resources"] = resources.Select(r => new SelectListItem
+            ViewData["Resources"] = resources.Where(res => res.IsAvailable == true).Select(r => new SelectListItem
             {
                 Value = r.Id.ToString(),
                 Text = r.Name
