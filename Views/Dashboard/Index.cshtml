@@ -21,6 +21,7 @@
                 </div>
             </div>
         </div>
+
         <div class="col-md-3">
             <div class="card text-white bg-success">
                 <div class="card-body">
@@ -29,6 +30,7 @@
                 </div>
             </div>
         </div>
+
         <div class="col-md-3">
             <div class="card text-white bg-warning">
                 <div class="card-body">
@@ -43,6 +45,15 @@
                 <div class="card-body">
                     <h5 class="card-title">Today's Bookings</h5>
                     <p class="card-text display-6">@Model.TodaysBookingsCount</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 mt-3">
+            <div class="card text-white bg-danger">
+                <div class="card-body">
+                    <h5 class="card-title">Cancelled Bookings</h5>
+                    <p class="card-text display-6">@Model.TotalCancelledBookings</p>
                 </div>
             </div>
         </div>

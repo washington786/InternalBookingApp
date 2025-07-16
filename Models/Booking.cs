@@ -12,7 +12,7 @@ public class Booking
     public required string BookedBy { get; set; }
     public required string Purpose { get; set; }
 
-    public bool IsCancelled { get; set; } = false;
+    public bool IsCancelled { get; set; }
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 
