@@ -112,9 +112,27 @@ namespace InternalBookingApp.Controllers
             return View(booking);
         }
 
-        public ActionResult Delete()
+        public async Task<ActionResult> Delete(int Id)
         {
-            return View();
+            var booking = await _bookingService.GetBookingById(Id);
+            if (booking == null)
+            {
+                return NotFound();
+            }
+            return View(booking);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public async Task<ActionResult> DeleteBooking(int Id)
+        {
+            var booking = await _bookingService.GetBookingById(Id);
+            if (booking != null)
+            {
+                await _bookingService.RemoveBooking(Id);
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(booking);
         }
 
         // helper Methods
