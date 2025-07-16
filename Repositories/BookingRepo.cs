@@ -57,7 +57,12 @@ public class BookingRepo(ApplicationDbContext dbContext) : IBookingRepo
         if (book != null)
         {
             book.IsCancelled = true;
+            _context.Entry(book).State = EntityState.Modified;
             await _context.SaveChangesAsync();
+        }
+        else
+        {
+            throw new Exception("Booking not found");
         }
     }
 
@@ -72,7 +77,7 @@ public class BookingRepo(ApplicationDbContext dbContext) : IBookingRepo
 
         var endTime = today.AddDays(daysUpcoming);
 
-        return await _context.Bookings.Where(b => b.StartTime >= today && b.StartTime <= endTime).OrderBy(b => b.StartTime)
+        return await _context.Bookings.Where(b => b.StartTime >= today && b.StartTime <= endTime && b.IsCancelled == false).OrderBy(b => b.StartTime)
         .ToListAsync();
     }
 

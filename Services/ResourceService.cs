@@ -13,6 +13,7 @@ public class ResourceService(IResourceRepo resourceRepo) : IResourceService
     public async Task<IEnumerable<ResourceDto>> GetAllResources()
     {
         var res = await _resource.GetAllResources();
+
         return res.Select((resource) => new ResourceDto(resource.Id, resource.Name, resource.Description, resource.Location, resource.Capacity, resource.IsAvailable, resource.Bookings?.Select(b => new BookingDto(
             b.Id,
             b.StartTime,

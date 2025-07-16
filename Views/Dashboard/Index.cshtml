@@ -37,6 +37,7 @@
                 </div>
             </div>
         </div>
+
         <div class="col-md-3">
             <div class="card text-white bg-info">
                 <div class="card-body">
@@ -45,46 +46,49 @@
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Upcoming Bookings -->
-    <div class="card">
-        <div class="card-header">
-            <h5><i class="bi bi-calendar-week"></i> Upcoming Bookings</h5>
-        </div>
-        <div class="card-body">
-            @if (Model.UpcomingBookings.Any())
-            {
-                <div class="table-responsive">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>Resource</th>
-                                <th>Date</th>
-                                <th>Time</th>
-                                <th>Booked By</th>
-                                <th>Purpose</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var booking in Model.UpcomingBookings)
-                            {
-                                <tr>
-                                    <td>@booking.Resource</td>
-                                    <td>@booking.StartTime.ToString("dd MMM yyyy")</td>
-                                    <td>@booking.StartTime.ToString("hh:mm tt") - @booking.EndTime.ToString("hh:mm tt")</td>
-                                    <td>@booking.BookedBy</td>
-                                    <td>@booking.Purpose</td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
-            }
-            else
-            {
-                <div class="alert alert-info">No upcoming bookings</div>
-            }
-        </div>
     </div>
+</div>
+
+
+<!-- Upcoming Bookings -->
+<div class="card">
+    <div class="card-header">
+        <h5><i class="bi bi-calendar-week"></i> Upcoming Bookings</h5>
+    </div>
+    <div class="card-body">
+        @if (Model.UpcomingBookings.Any())
+        {
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Resource</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Booked By</th>
+                            <th>Purpose</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var booking in Model.UpcomingBookings)
+                        {
+                            <tr>
+                                <td>@booking.Resource</td>
+                                <td>@booking.StartTime.ToString("dd MMM yyyy")</td>
+                                <td>@booking.StartTime.ToString("hh:mm tt") - @booking.EndTime.ToString("hh:mm tt")</td>
+                                <td>@booking.BookedBy</td>
+                                <td>@booking.Purpose</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-info">No upcoming bookings</div>
+        }
+    </div>
+</div>
 </div>

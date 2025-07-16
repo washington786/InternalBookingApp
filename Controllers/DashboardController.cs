@@ -13,19 +13,14 @@ namespace InternalBookingApp.Controllers
         [Route("Index")]
         public async Task<ActionResult> Index()
         {
-            var totalResources = await _statsService.GetTotalResources();
-            var totalAvailableResources = await _statsService.GetTotalAvailableResources();
-            var totalInMaintenanceResources = await _statsService.GetTotalInMaintenceResources();
-            var todaysBookings = await _statsService.GetTodaysBookings();
-            var upcomingBookings = await _statsService.GetUpcomingBookings();
-
             var model = new Dashboard
             {
-                TotalResources = totalResources,
-                AvailableResources = totalAvailableResources,
-                ResourcesInMaintenance = totalInMaintenanceResources,
-                TodaysBookingsCount = todaysBookings,
-                UpcomingBookings = upcomingBookings
+                TotalResources = await _statsService.GetTotalResources(),
+                AvailableResources = await _statsService.GetTotalAvailableResources(),
+                ResourcesInMaintenance = await _statsService.GetTotalInMaintenceResources(),
+                TodaysBookingsCount = await _statsService.GetTodaysBookings(),
+                TotalCancelledBookings = await _statsService.GetTotalCancelled(),
+                UpcomingBookings = await _statsService.GetUpcomingBookings()
             };
 
             return View(model);
