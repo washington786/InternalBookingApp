@@ -105,9 +105,10 @@ namespace InternalBookingApp.Controllers
         public async Task<ActionResult> CancelBooking(int Id)
         {
             var booking = await _bookingService.GetBookingById(Id);
-            if (booking == null)
+            if (booking != null)
             {
-                return NotFound();
+                await _bookingService.CancelBooking(Id);
+                return RedirectToAction(nameof(Index));
             }
             return View(booking);
         }

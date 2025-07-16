@@ -78,6 +78,10 @@ public class BookingService(IBookingRepo bookingRepo, IResourceRepo resourceRepo
         await _bookingRepo.RemoveBooking(Id);
     }
 
+    public async Task CancelBooking(int Id)
+    {
+        await _bookingRepo.CancelOrder(Id);
+    }
 
     // helper methods
     private static BookingDto ToDto(Booking book)

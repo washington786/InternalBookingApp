@@ -15,6 +15,8 @@ public interface IBookingRepo
 
     Task RemoveBooking(int Id);
 
+    Task CancelOrder(int Id);
+
     // main application logic
     Task<bool> HasBookingConflicts(int ResourceId, DateTime StartTime, DateTime EndTime, int? bookingId = null);
     Task<IEnumerable<Booking>> GetBookingByResource(int Id);

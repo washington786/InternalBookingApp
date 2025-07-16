@@ -14,5 +14,7 @@ public interface IBookingService
     Task EditBooking(UpdateBookingDto booking, int Id);
 
     Task RemoveBooking(int Id);
+
+    Task CancelBooking(int Id);
 }
 

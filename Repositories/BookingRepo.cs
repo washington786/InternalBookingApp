@@ -51,6 +51,16 @@ public class BookingRepo(ApplicationDbContext dbContext) : IBookingRepo
         }
     }
 
+    public async Task CancelOrder(int Id)
+    {
+        var book = await GetBookingById(Id);
+        if (book != null)
+        {
+            book.IsCancelled = true;
+            await _context.SaveChangesAsync();
+        }
+    }
+
     public async Task<IEnumerable<Booking>> GetBookingByResource(int Id)
     {
         return await _context.Bookings.Where(b => b.ResourceId == Id).OrderBy(b => b.StartTime).ToListAsync();

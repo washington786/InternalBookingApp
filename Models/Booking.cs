@@ -12,6 +12,10 @@ public class Booking
     public required string BookedBy { get; set; }
     public required string Purpose { get; set; }
 
+    public bool IsCancelled { get; set; } = false;
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
+
     public int ResourceId { get; set; }
     [ForeignKey("ResourceId")]
     public Resource? Resource { get; set; }
