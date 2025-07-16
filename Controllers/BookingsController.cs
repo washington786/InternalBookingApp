@@ -1,12 +1,18 @@
+using System.Threading.Tasks;
+using InternalBookingApp.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InternalBookingApp.Controllers
 {
-    public class BookingsController : Controller
+    public class BookingsController(IBookingService bookingService) : Controller
     {
-        public ActionResult Index()
+        private readonly IBookingService _bookingService = bookingService;
+
+        public async Task<ActionResult> Index()
         {
-            return View();
+            var bookings = await _bookingService.GetAllBookings();
+
+            return View(bookings);
         }
 
         public ActionResult Create()
