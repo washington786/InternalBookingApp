@@ -1,4 +1,5 @@
 using System;
+using InternalBookingApp.DTOs.Booking;
 using InternalBookingApp.DTOs.Resource;
 using InternalBookingApp.Interfaces;
 using InternalBookingApp.Models;
@@ -17,13 +18,27 @@ public class ResourceService(IResourceRepo resourceRepo) : IResourceService
 
     public async Task<ResourceDto?> GetResourceById(int Id)
     {
+        /* int Id, DateTime StartTime, DateTime EndTime, string Purpose, string BookedBy, int ResourceId, string? Resource, bool? IsCancelled = false */
         var resource = await _resource.GetResourceById(Id);
-        return resource is not null ? new ResourceDto(resource.Id,
-             resource.Name,
-           resource.Description,
+
+        return resource is not null ? new ResourceDto(
+            resource.Id,
+            resource.Name,
+            resource.Description,
             resource.Location,
             resource.Capacity,
-            resource.IsAvailable) : null;
+            resource.IsAvailable,
+            resource.Bookings?.Select(b => new BookingDto(
+                b.Id,
+                b.StartTime,
+                b.EndTime,
+                b.Purpose,
+                b.BookedBy,
+                b.ResourceId,
+                b.Resource?.Name,
+                b.IsCancelled
+            )).ToArray()
+            ) : null;
     }
 
     public async Task<ResourceDto> CreateResource(CreateResourceDto request)

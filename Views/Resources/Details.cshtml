@@ -33,6 +33,43 @@
                 </span>
             </dd>
         </dl>
+        @if (Model.Bookings != null && Model.Bookings.Any())
+        {
+            <h3 class="mt-4">Bookings</h3>
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Booking ID</th>
+                        <th>User</th>
+                        <th>Start Time</th>
+                        <th>End Time</th>
+                        <th>Purpose</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var booking in Model.Bookings)
+                    {
+                        <tr>
+                            <td>@booking.Id</td>
+                            <td>@booking.BookedBy</td>
+                            <td>@booking.StartTime.ToString("g")</td>
+                            <td>@booking.EndTime.ToString("g")</td>
+                            <td>@booking.Purpose</td>
+                            <td>
+                                <span class="badge @(booking.IsCancelled == false ? "bg-success" : "bg-secondary")">
+                                    @(booking.IsCancelled == false ? "Active" : "Completed")
+                                </span>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <div class="alert alert-info mt-4">No bookings found for this resource.</div>
+        }
     </div>
 </div>
 </div>

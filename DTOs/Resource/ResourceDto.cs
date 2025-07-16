@@ -1,3 +1,5 @@
+using InternalBookingApp.DTOs.Booking;
+
 namespace InternalBookingApp.DTOs.Resource;
 
 public record class ResourceDto(int Id,
@@ -5,7 +7,8 @@ public record class ResourceDto(int Id,
     string Description,
     string Location,
     int Capacity,
-    bool IsAvailable)
+    bool IsAvailable, BookingDto[]? Bookings = null)
+
 {
 
 }
