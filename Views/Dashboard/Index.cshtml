@@ -1,0 +1,90 @@
+﻿@* @model DashboardViewModel *@
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2><i class="bi bi-speedometer2"></i> Dashboard</h2>
+        <a asp-controller="Bookings" asp-action="Create" class="btn btn-primary">
+            <i class="bi bi-plus-circle"></i> New Booking
+        </a>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="card text-white bg-primary">
+                <div class="card-body">
+                    <h5 class="card-title">Total Resources</h5>
+                    <p class="card-text display-6">@Model.TotalResources</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-success">
+                <div class="card-body">
+                    <h5 class="card-title">Available Resources</h5>
+                    <p class="card-text display-6">@Model.AvailableResources</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-warning">
+                <div class="card-body">
+                    <h5 class="card-title">In Maintenance</h5>
+                    <p class="card-text display-6">@Model.ResourcesInMaintenance</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-info">
+                <div class="card-body">
+                    <h5 class="card-title">Today's Bookings</h5>
+                    <p class="card-text display-6">@Model.TodaysBookingsCount</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Upcoming Bookings -->
+    <div class="card">
+        <div class="card-header">
+            <h5><i class="bi bi-calendar-week"></i> Upcoming Bookings</h5>
+        </div>
+        <div class="card-body">
+            @if (Model.UpcomingBookings.Any())
+            {
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Resource</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Booked By</th>
+                                <th>Purpose</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var booking in Model.UpcomingBookings)
+                            {
+                                <tr>
+                                    <td>@booking.ResourceName</td>
+                                    <td>@booking.StartTime.ToString("dd MMM yyyy")</td>
+                                    <td>@booking.StartTime.ToString("hh:mm tt") - @booking.EndTime.ToString("hh:mm tt")</td>
+                                    <td>@booking.BookedBy</td>
+                                    <td>@booking.Purpose</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-info">No upcoming bookings</div>
+            }
+        </div>
+    </div>
+</div>
