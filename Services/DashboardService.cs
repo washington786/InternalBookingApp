@@ -13,8 +13,10 @@ public class DashboardService(IResourceService resourceService, IBookingService 
     {
         var today = DateTime.Today;
         var bookings = await _booking.GetAllBookings();
-        var results = bookings.Where(booking => booking.StartTime == today || booking.EndTime == today);
-        return results.Where(res => res.IsCancelled == false).Count();
+
+        return bookings.Count(booking =>
+            (booking.StartTime.Date == today || booking.EndTime.Date == today) &&
+            (booking.IsCancelled == false || booking.IsCancelled == null));
     }
 
     public async Task<int> GetTotalAvailableResources()
@@ -41,7 +43,7 @@ public class DashboardService(IResourceService resourceService, IBookingService 
     public Task<IEnumerable<BookingDto>> GetUpcomingBookings()
     {
         var bookings = _booking.GetAllBookings();
-        var upcomingBookings = bookings.Result.Where(booking => booking.StartTime > DateTime.Now && booking.IsCancelled == false);
+        var upcomingBookings = bookings.Result.Where(booking => booking.StartTime.Date > DateTime.Today && booking.IsCancelled == false);
         return Task.FromResult(upcomingBookings);
     }
 }
